@@ -4,6 +4,6 @@
 #include <vector>
 #include <cassert>
 
-void insertion_sort( std::vector< int> &v, bool less( int, int));
+void insertion_sort( std::vector< int> &v, bool less( int, int), bool print = false);
 
 #endif
