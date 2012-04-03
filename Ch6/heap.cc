@@ -4,6 +4,7 @@
 using namespace std;
 
 void printHeap( ostream &os, const Heap &heap) {
+	os << "HEAP: ";
 	for ( Heap::const_iterator it = heap.begin(); it != heap.end(); ++it) {
 		int node = *it;
 		os << node << " ";
