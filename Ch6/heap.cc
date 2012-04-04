@@ -12,13 +12,14 @@ void printHeap( ostream &os, const Heap &heap) {
 	os << std::endl;
 }
 		
-void maxHeapify( Heap &heap, size_t idx) {
+void maxHeapify( Heap &heap, size_t heapSize, size_t idx) {
+	assert( idx < heapSize);
 	while ( 1) {
 		int largestIdx;
 
 		// Check left sub-tree
 		size_t left = leftIdx( idx);
-		if ( !isValidIdx( left, heap)) {
+		if ( !isValidIdx( left, heapSize)) {
 			break;
 		}
 		if ( heap[ left] > heap[ idx]) {
@@ -30,7 +31,7 @@ void maxHeapify( Heap &heap, size_t idx) {
 
 		// Check right sub-tree
 		size_t right = rightIdx( idx);
-		if ( !isValidIdx( right, heap)) {
+		if ( !isValidIdx( right, heapSize)) {
 			break;
 		}
 		if ( heap[ right] > heap[ largestIdx]) {
@@ -43,14 +44,13 @@ void maxHeapify( Heap &heap, size_t idx) {
 	}
 }
 
-void buildMaxHeap( Heap &heap) {
-	size_t heapSize = heap.size();
+void buildMaxHeap( Heap &heap, size_t heapSize) {
 	if ( heapSize <= 1) {
 		return;
 	}
-	size_t i = lastNonLeafIdx( heap);
+	size_t i = lastNonLeafIdx( heapSize);
 	do {
-		maxHeapify( heap, i);
+		maxHeapify( heap, heapSize, i);
 	} while( i-- != 0);
 }
 

@@ -11,15 +11,15 @@ void printHeap( std::ostream &os, const Heap &heap);
 
 static inline size_t leftIdx( const size_t idx) { return idx * 2 + 1; }
 static inline size_t rightIdx( const size_t idx) { return idx * 2 + 2; }
-static inline size_t firstLeafIdx( const Heap &heap) { return heap.size() / 2; }
-static inline size_t lastNonLeafIdx( const Heap &heap) {
-	assert( heap.size() > 1);
-	return firstLeafIdx( heap) - 1;
+static inline size_t firstLeafIdx( const size_t heapSize) { return heapSize / 2; }
+static inline size_t lastNonLeafIdx( const size_t heapSize) {
+	assert( heapSize > 1);
+	return firstLeafIdx( heapSize) - 1;
 }
 
-static inline bool isValidIdx( size_t idx, const Heap &heap) { return idx < heap.size(); }
+static inline bool isValidIdx( const size_t idx, const size_t heapSize) { return idx < heapSize; }
 
-void maxHeapify( Heap &heap, size_t idx);
-void buildMaxHeap( Heap &heap);
+void maxHeapify( Heap &heap, size_t heapSize, size_t idx);
+void buildMaxHeap( Heap &heap, size_t heapSize);
 
 #endif

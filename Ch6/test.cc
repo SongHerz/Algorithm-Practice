@@ -17,7 +17,7 @@ void test_maxHeapify( ostream &os) {
 	os << "Before max heapify" << std::endl;
 	printHeap( os, heap);
 	
-	maxHeapify( heap, 1);
+	maxHeapify( heap, heap.size(), 1);
 	os << "After max heapify" << std::endl;
 	printHeap( os, heap);
 }
@@ -34,7 +34,7 @@ void test_buildMaxHeap( ostream &os) {
 	os << "Before build max heap" << std::endl;
 	printHeap( os, heap);
 	
-	buildMaxHeap( heap);
+	buildMaxHeap( heap, heap.size());
 	os << "After build max heap" << std::endl;
 	printHeap( os, heap);
 }
