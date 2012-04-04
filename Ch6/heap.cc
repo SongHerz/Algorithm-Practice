@@ -43,3 +43,14 @@ void maxHeapify( Heap &heap, size_t idx) {
 	}
 }
 
+void buildMaxHeap( Heap &heap) {
+	size_t heapSize = heap.size();
+	if ( heapSize <= 1) {
+		return;
+	}
+	size_t i = lastNonLeafIdx( heap);
+	do {
+		maxHeapify( heap, i);
+	} while( i-- != 0);
+}
+

@@ -22,7 +22,25 @@ void test_maxHeapify( ostream &os) {
 	printHeap( os, heap);
 }
 
+void test_buildMaxHeap( ostream &os) {
+	Heap heap;
+	ifstream data( "test_buildMaxHeap.in");
+	int node;
+	while ( data >> node) {
+		heap.push_back( node);
+	}
+	data.close();
+
+	os << "Before build max heap" << std::endl;
+	printHeap( os, heap);
+	
+	buildMaxHeap( heap);
+	os << "After build max heap" << std::endl;
+	printHeap( os, heap);
+}
+
 int main() {
 	test_maxHeapify( std::cout);
+	test_buildMaxHeap( std::cout);
 	return 0;
 }
