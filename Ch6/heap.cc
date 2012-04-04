@@ -31,15 +31,15 @@ void maxHeapify( Heap &heap, size_t heapSize, size_t idx) {
 
 		// Check right sub-tree
 		size_t right = rightIdx( idx);
-		if ( !isValidIdx( right, heapSize)) {
-			break;
-		}
-		if ( heap[ right] > heap[ largestIdx]) {
+		if ( isValidIdx( right, heapSize) && heap[ right] > heap[ largestIdx]) {
 			largestIdx = right;
 		}
 		if ( largestIdx != idx) {
 			std::swap( heap[ largestIdx], heap[ idx]);
 			idx = largestIdx;
+		}
+		else {
+			break;
 		}
 	}
 }
@@ -54,3 +54,12 @@ void buildMaxHeap( Heap &heap, size_t heapSize) {
 	} while( i-- != 0);
 }
 
+void heapSort( Heap &heap) {
+	size_t heapSize = heap.size();
+	buildMaxHeap( heap, heapSize);
+	for ( size_t i = heap.size() - 1; i > 0; --i) {
+		std::swap( heap[ 0], heap[ i]);
+		--heapSize;
+		maxHeapify( heap, heapSize, 0);
+	}
+}

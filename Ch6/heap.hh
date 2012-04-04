@@ -22,4 +22,6 @@ static inline bool isValidIdx( const size_t idx, const size_t heapSize) { return
 void maxHeapify( Heap &heap, size_t heapSize, size_t idx);
 void buildMaxHeap( Heap &heap, size_t heapSize);
 
+void heapSort( Heap &heap);
+
 #endif
