@@ -25,7 +25,7 @@ static void printSortVec( const std::vector< SORT_TYPE> &vec, size_t p, size_t r
 			// The number is the pivot
 			mark = PIVOT_MARK;
 		}
-		else if ( idx != p - 1 && idx <= i) {
+		else if ( i != p - 1 && idx <= i) {
 			// The number is less than the pivot
 			mark = LESS_THAN_PIVOT_MARK;
 		}
@@ -54,7 +54,7 @@ static void printSortVec( const std::vector< SORT_TYPE> &vec, size_t p, size_t r
 }
 
 
-size_t partation( std::vector< SORT_TYPE> &vec, size_t p, size_t r, bool printStep) {
+size_t partation( std::vector< SORT_TYPE> &vec, size_t p, size_t r, bool printChangeStep, bool printEachStep) {
 	assert( p >= 0 && p < vec.size());
 	assert( r >= 0 && r < vec.size());	
 
@@ -62,18 +62,38 @@ size_t partation( std::vector< SORT_TYPE> &vec, size_t p, size_t r, bool printSt
 	size_t i = p - 1;
 	size_t j = p;
 
+	// print initial status
+	if ( printChangeStep || printEachStep) {
+		cout << "Initial step: " << endl;
+		printSortVec( vec, p, r, i, j, r);
+
+		cout << endl;
+		if ( printChangeStep && !printEachStep) {
+			cout << "Change step only:" << endl;
+		}
+		else {
+			assert( printEachStep);
+			cout << "Each step:" << endl;
+		}
+	}
+
 	for ( ; j < r; ++j) {
 		if ( vec[ j] < pivot) {
 			i += 1;
 			swap( vec[ j], vec[ i]);
-			if ( printStep) {
+			if ( printChangeStep && !printEachStep) {
 				printSortVec( vec, p, r, i, j, r);
 			}
+		}
+		if ( printEachStep) {
+			printSortVec( vec, p, r, i, j, r);
 		}
 	}
 	assert( i <= j - 1);
 	swap( vec[ i + 1], vec[ r]);
-	if ( printStep) {
+	if ( printChangeStep || printEachStep) {
+		cout << endl;
+		cout << "Move pivot:" << endl;
 		printSortVec( vec, p, r, i, j, r);
 	}
 

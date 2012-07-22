@@ -5,6 +5,7 @@
 #include <vector>
 
 typedef int SORT_TYPE;
-size_t partation( std::vector< SORT_TYPE> &vec, size_t p, size_t r, bool printStep = false);
+size_t partation( std::vector< SORT_TYPE> &vec, size_t p, size_t r,
+		bool printChangeStep = false, bool printEachStep = false);
 
 #endif
