@@ -12,6 +12,7 @@ static void printSortVec( const std::vector< SORT_TYPE> &vec, size_t p, size_t r
 	const char UNSCANED_MARK = '=';
 	const char PIVOT_MARK = 'v';
 
+	ostringstream ossIdx;
 	ostringstream ossNums;
 	ostringstream ossMarks;
 
@@ -78,7 +79,7 @@ size_t partation( std::vector< SORT_TYPE> &vec, size_t p, size_t r, bool printCh
 	}
 
 	for ( ; j < r; ++j) {
-		if ( vec[ j] < pivot) {
+		if ( vec[ j] <= pivot) {
 			i += 1;
 			swap( vec[ j], vec[ i]);
 			if ( printChangeStep && !printEachStep) {
@@ -89,13 +90,35 @@ size_t partation( std::vector< SORT_TYPE> &vec, size_t p, size_t r, bool printCh
 			printSortVec( vec, p, r, i, j, r);
 		}
 	}
-	assert( i <= j - 1);
-	swap( vec[ i + 1], vec[ r]);
+	assert( i <= j - 1 /* i changed */ || i == p - 1 /* i never changed */);
+
+	size_t newPivotPos = (size_t)( -1);
+	if ( i == j - 1) {
+		// all elements are not greater than the pivot
+		// Just use the element in the middle as the new pivot
+		newPivotPos = ( p + r) / 2;
+	}
+	else {
+		newPivotPos = i + 1;
+		swap( vec[ newPivotPos], vec[ r]);
+	}
+
 	if ( printChangeStep || printEachStep) {
 		cout << endl;
 		cout << "Move pivot:" << endl;
-		printSortVec( vec, p, r, i, j, r);
+		printSortVec( vec, p, r, i, j, newPivotPos);
 	}
 
 	return i + 1;
 }
+
+
+void qsort( std::vector< SORT_TYPE> &vec, size_t p, size_t r) {
+	if ( p < r && r < vec.size()) {
+		const size_t q = partation( vec, p, r);
+		
+		qsort( vec, p, q - 1); // q - 1 may cause nested qsort parameter r be the largest value of size_t
+		qsort( vec, q + 1, r);
+	}
+}
+	

@@ -8,4 +8,6 @@ typedef int SORT_TYPE;
 size_t partation( std::vector< SORT_TYPE> &vec, size_t p, size_t r,
 		bool printChangeStep = false, bool printEachStep = false);
 
+void qsort( std::vector< SORT_TYPE> &vec, size_t p, size_t r);
+
 #endif
