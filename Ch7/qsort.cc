@@ -2,6 +2,7 @@
 #include <algorithm>
 #include <iostream>
 #include <sstream>
+#include "Utility/random.hh"
 #include "qsort.hh"
 
 using namespace std;
@@ -121,4 +122,20 @@ void qsort( std::vector< SORT_TYPE> &vec, size_t p, size_t r) {
 		qsort( vec, q + 1, r);
 	}
 }
-	
+
+
+size_t randomizedPartation( std::vector< SORT_TYPE> &vec, size_t p, size_t r,
+		bool printChangeStep, bool printEachStep) {
+	const size_t randomPivotPos = Random::random( p, r);
+	std::swap( vec[ r], vec[ randomPivotPos]);
+	return partation( vec, p, r, printChangeStep, printEachStep);
+}
+
+void randomizedQsort( std::vector< SORT_TYPE> &vec, size_t p, size_t r) {
+	if ( p < r && r < vec.size()) {
+		const size_t q = randomizedPartation( vec, p, r);
+		
+		randomizedQsort( vec, p, q - 1); // q - 1 may cause nested qsort parameter r be the largest value of size_t
+		randomizedQsort( vec, q + 1, r);
+	}
+}

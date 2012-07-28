@@ -10,4 +10,10 @@ size_t partation( std::vector< SORT_TYPE> &vec, size_t p, size_t r,
 
 void qsort( std::vector< SORT_TYPE> &vec, size_t p, size_t r);
 
+
+size_t randomizedPartation( std::vector< SORT_TYPE> &vec, size_t p, size_t r,
+		bool printChangeStep = false, bool printEachStep = false);
+
+void randomizedQsort( std::vector< SORT_TYPE> &vec, size_t p, size_t r);
+
 #endif

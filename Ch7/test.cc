@@ -26,6 +26,19 @@ static void do_test_qsort( const SORT_TYPE *elems, const size_t size) {
 	std::cout << std::endl;
 }
 
+static void do_test_randomized_qsort( const SORT_TYPE *elems, const size_t size) {
+	std::cout << std::endl;
+	std::vector< SORT_TYPE> vec( elems, elems + size);
+	std::cout << "Original array: " << std::endl;
+	copy( vec.begin(), vec.end(), std::ostream_iterator< SORT_TYPE>( std::cout, ", "));
+	std::cout << std::endl;
+
+	randomizedQsort( vec, 0, vec.size() - 1);
+	std::cout << "Randomized qsorted array:  " << std::endl;
+	copy( vec.begin(), vec.end(), std::ostream_iterator< SORT_TYPE>( std::cout, ", "));
+	std::cout << std::endl;
+}
+
 static void test_partation() {
 	SORT_TYPE elems0[] = { 13, 19, 9, 5, 12, 8, 7, 4, 21, 2, 6, 11};
 	SORT_TYPE elems1[] = { 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11};
@@ -38,6 +51,10 @@ static void test_partation() {
 	do_test_qsort( elems0, ARY_SIZE( elems0));
 	do_test_qsort( elems1, ARY_SIZE( elems1));
 	do_test_qsort( elems2, ARY_SIZE( elems2));
+
+	do_test_randomized_qsort( elems0, ARY_SIZE( elems0));
+	do_test_randomized_qsort( elems1, ARY_SIZE( elems1));
+	do_test_randomized_qsort( elems2, ARY_SIZE( elems2));
 }
 
 
