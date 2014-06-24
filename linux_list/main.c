@@ -26,11 +26,17 @@ void init_que( struct list_head *busy_que, struct list_head *idle_que) {
 
 
 void _destroy_a_que( struct list_head *que) {
-    // TODO: FINISH THIS
+    struct list_head *pos, *n;
+    list_for_each_safe( pos, n, que) {
+        struct my_node *n = list_entry( pos, struct my_node, head);
+        list_del( pos);
+        free( n);
+    }
 }
 
 void destroy_que( struct list_head *busy_que, struct list_head *idle_que) {
-    // TODO: FINISH THIS
+    _destroy_a_que( busy_que);
+    _destroy_a_que( idle_que);
 }
 
 
@@ -71,9 +77,34 @@ void title(const char *t) {
 }
 
 
+void random_move( struct list_head *from, struct list_head *to, int ratio) {
+    struct list_head *pos, *n;
+    int i;
+    list_for_each_safe( pos, n, from) {
+        if ( random() % ratio == 0) {
+            struct my_node *n = list_entry( pos, struct my_node, head);
+            printf("Move %d to the tail of another queue\n", n->val);
+            list_move_tail( pos, to);
+        }
+        i++;
+    }
+}
+
 int main() {
     init_que( &busy_que, &idle_que);
     title("After initialization");
+    show_lists( &busy_que, &idle_que);
+
+    title("Begin to move nodes from idle_que to busy_que");
+    random_move( &idle_que, &busy_que, 3);
+    show_lists( &busy_que, &idle_que);
+
+    title("Begin to move nodes from busy_que to idle_que");
+    random_move( &busy_que, &idle_que, 2);
+    show_lists( &busy_que, &idle_que);
+
+    destroy_que( &busy_que, &idle_que);
+    title("After destroy");
     show_lists( &busy_que, &idle_que);
 
     return 0;
